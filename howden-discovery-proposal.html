@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Howden Prime Tech — AI Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f8f7f5; --surface:#fff; --black:#111; --ink:#1c1c1c; --ink2:#595959; --ink3:#939390;
+  --rule:#e0ddd8; --panel:#efeeea; --gold:#a08000; --gold-light:#c4a000;
+  --serif:"Playfair Display",Georgia,serif;
+  --sans:"Inter",system-ui,sans-serif;
+  --mono:"DM Mono","Courier New",monospace;
+  --maxw:860px; --gutter:24px;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#111; --surface:#1a1a1a; --black:#f0ede8; --ink:#e8e5e0;
+  --ink2:#a0a09d; --ink3:#666; --rule:#2a2a2a; --panel:#1f1f1f;
+}}
+:root[data-theme=dark]{
+  --bg:#111; --surface:#1a1a1a; --black:#f0ede8; --ink:#e8e5e0;
+  --ink2:#a0a09d; --ink3:#666; --rule:#2a2a2a; --panel:#1f1f1f;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);font-size:16px;line-height:1.7;color:var(--ink);background:var(--bg);}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* COVER */
+.cover{
+  min-height:100vh; background:#111; color:#fff;
+  display:flex; flex-direction:column;
+  padding:48px var(--gutter);
+  position:relative; overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:radial-gradient(ellipse at 80% 20%, rgba(180,150,0,0.06) 0%, transparent 60%);
+  pointer-events:none;
+}
+.cover-top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.cover-logos{display:flex;align-items:center;gap:24px;}
+.cover-logo-am img{height:26px;filter:invert(1) brightness(0.9);opacity:0.85;}
+.cover-logo-divider{width:1px;height:24px;background:rgba(255,255,255,.2);}
+.cover-logo-how img{height:28px;/* gold logo — keep colour */opacity:0.9;}
+.cover-tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.4);
+}
+.cover-body{
+  flex:1;display:flex;flex-direction:column;justify-content:flex-end;
+  padding-bottom:16px;
+}
+.cover-eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px;
+}
+.cover-title{
+  font-family:var(--serif);font-size:clamp(36px,6vw,72px);
+  font-weight:400;line-height:1.08;color:#fff;
+  text-wrap:balance;max-width:700px;margin-bottom:8px;
+}
+.cover-subtitle{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(18px,2.5vw,26px);color:rgba(255,255,255,.5);
+  margin-bottom:40px;
+}
+.cover-rule{height:1px;background:rgba(255,255,255,.15);margin-bottom:28px;}
+.cover-meta{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;
+}
+.cover-meta-label{
+  font-family:var(--mono);font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px;
+}
+.cover-meta-val{font-size:13px;color:rgba(255,255,255,.75);font-weight:400;}
+
+/* LAYOUT */
+.page{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);}
+
+/* CHAPTER OPENER */
+.chapter-opener{
+  background:#111;color:#fff;
+  padding:64px var(--gutter) 48px;
+  position:relative;overflow:hidden;
+}
+.chapter-num-large{
+  position:absolute;right:var(--gutter);top:50%;transform:translateY(-50%);
+  font-family:var(--serif);font-size:clamp(120px,18vw,220px);
+  font-weight:700;line-height:1;
+  color:rgba(255,255,255,.05);user-select:none;pointer-events:none;
+}
+.chapter-opener-inner{max-width:var(--maxw);margin:0 auto;position:relative;z-index:1;}
+.chapter-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px;
+}
+.chapter-title{
+  font-family:var(--serif);font-size:clamp(28px,4vw,48px);
+  font-weight:400;line-height:1.15;color:#fff;text-wrap:balance;
+}
+.chapter-desc{
+  font-size:15px;color:rgba(255,255,255,.5);margin-top:16px;
+  max-width:560px;line-height:1.65;
+}
+
+/* CONTENT */
+.section{padding:56px 0;border-bottom:1px solid var(--rule);}
+.section:last-child{border-bottom:none;}
+.section-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:20px;
+}
+.section h2{
+  font-family:var(--serif);font-size:clamp(22px,3vw,32px);
+  font-weight:400;line-height:1.2;color:var(--black);
+  margin-bottom:20px;text-wrap:balance;
+}
+.section h3{
+  font-family:var(--serif);font-size:clamp(17px,2vw,22px);
+  font-weight:400;line-height:1.3;color:var(--black);
+  margin-bottom:12px;text-wrap:balance;
+}
+.section p{color:var(--ink2);line-height:1.75;margin-bottom:16px;font-size:15px;}
+.section p:last-child{margin-bottom:0;}
+
+/* STATS GRID */
+.stats-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1px;background:var(--rule);margin:40px 0;
+}
+.stat-cell{background:var(--surface);padding:28px 20px;}
+.stat-num{
+  font-family:var(--serif);font-size:clamp(32px,4vw,48px);
+  font-weight:600;color:var(--black);line-height:1;margin-bottom:8px;
+}
+.stat-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink3);
+}
+
+/* PULL QUOTE */
+.pull-quote{
+  border-left:3px solid var(--black);padding:20px 24px;
+  background:var(--panel);margin:40px 0;
+}
+.pull-quote p{
+  font-family:var(--serif);font-size:clamp(17px,2vw,22px);
+  font-style:italic;color:var(--black);line-height:1.5;margin:0;
+}
+
+/* AREA CARDS */
+.area-cards{display:flex;flex-direction:column;gap:0;margin:32px 0;}
+.area-card{
+  border:1px solid var(--rule);padding:28px 24px;
+  background:var(--surface);border-bottom:none;
+}
+.area-card:first-child{border-radius:4px 4px 0 0;}
+.area-card:last-child{border-bottom:1px solid var(--rule);border-radius:0 0 4px 4px;}
+.area-card-num{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  color:var(--ink3);margin-bottom:10px;
+}
+.area-card-title{
+  font-family:var(--serif);font-size:19px;font-weight:400;
+  color:var(--black);margin-bottom:10px;
+}
+.area-card-body{font-size:14px;color:var(--ink2);line-height:1.7;}
+
+/* PHASES */
+.phases{margin:32px 0;}
+.phase{
+  border:1px solid var(--rule);margin-bottom:-1px;
+  background:var(--surface);display:flex;
+}
+.phase-rail{width:4px;background:#111;flex-shrink:0;}
+.phase-body{padding:28px 24px;flex:1;}
+.phase-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:8px;
+}
+.phase-title{
+  font-family:var(--serif);font-size:20px;font-weight:400;
+  color:var(--black);margin-bottom:10px;
+}
+.phase-desc{font-size:14px;color:var(--ink2);line-height:1.7;}
+.phase-items{margin-top:12px;}
+.phase-item{
+  font-size:13px;color:var(--ink2);padding:4px 0;
+  padding-left:14px;position:relative;
+}
+.phase-item::before{content:'—';position:absolute;left:0;color:var(--ink3);}
+
+/* DELIVERABLE */
+.deliverable-list{margin:24px 0;}
+.deliverable-item{
+  display:flex;gap:16px;padding:20px 0;
+  border-bottom:1px solid var(--rule);align-items:flex-start;
+}
+.deliverable-item:last-child{border-bottom:none;}
+.deliverable-icon{
+  font-family:var(--mono);font-size:11px;color:var(--ink3);
+  padding-top:2px;min-width:24px;
+}
+.deliverable-content h4{font-size:15px;font-weight:600;color:var(--black);margin-bottom:4px;}
+.deliverable-content p{font-size:14px;color:var(--ink2);margin:0;}
+
+/* TERMS */
+.terms-list{margin:24px 0;}
+.term-row{
+  display:grid;grid-template-columns:180px 1fr;
+  gap:16px;padding:16px 0;border-bottom:1px solid var(--rule);align-items:start;
+}
+.term-row:last-child{border-bottom:none;}
+.term-key{
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3);padding-top:2px;
+}
+.term-val{font-size:14px;color:var(--ink2);line-height:1.65;}
+.term-val strong{color:var(--black);font-weight:600;}
+
+/* NEXT STEPS */
+.next-steps{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1px;background:var(--rule);margin:32px 0;
+}
+.next-step{background:var(--surface);padding:24px 20px;}
+.next-step-num{
+  font-family:var(--serif);font-size:36px;font-weight:600;
+  color:var(--rule);line-height:1;margin-bottom:12px;
+}
+.next-step-title{font-size:14px;font-weight:600;color:var(--black);margin-bottom:6px;}
+.next-step-desc{font-size:13px;color:var(--ink2);line-height:1.6;}
+
+/* FOOTER */
+.report-footer{
+  background:#111;color:rgba(255,255,255,.5);
+  padding:40px var(--gutter);
+}
+.report-footer-inner{
+  max-width:var(--maxw);margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:20px;
+}
+.footer-logos{display:flex;align-items:center;gap:20px;}
+.footer-logos img.am{height:18px;filter:invert(1) brightness(0.9);opacity:0.6;}
+.footer-logos img.how{height:20px;opacity:0.55;}
+.footer-div{width:1px;height:18px;background:rgba(255,255,255,.2);}
+.report-footer-text{font-family:var(--mono);font-size:11px;letter-spacing:.06em;}
+
+@media(max-width:600px){
+  .term-row{grid-template-columns:1fr;}
+  .cover-meta{grid-template-columns:1fr 1fr;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-logos">
+      <div class="cover-logo-am"><img src="data:image/webp;base64,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" alt="Automagic AI"></div>
+      <div class="cover-logo-divider"></div>
+      <div class="cover-logo-how"><img src="data:image/png;base64,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" alt="Howden"></div>
+    </div>
+    <div class="cover-tag">Confidential · September 2026</div>
+  </div>
+  <div class="cover-body">
+    <div class="cover-eyebrow">Prepared for · Howden Prime Tech</div>
+    <div class="cover-title">AI Transformation Discovery</div>
+    <div class="cover-subtitle">A structured investigation of where artificial intelligence creates the most leverage across the Prime Tech brokerage operation.</div>
+    <div class="cover-rule"></div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Prepared by</div>
+        <div class="cover-meta-val">Automagic AI</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Engagement type</div>
+        <div class="cover-meta-val">Discovery</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Duration</div>
+        <div class="cover-meta-val">3–4 Days</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Deliverable</div>
+        <div class="cover-meta-val">AI Transformation Report</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 1 -->
+<div class="chapter-opener">
+  <div class="chapter-num-large">01</div>
+  <div class="chapter-opener-inner">
+    <div class="chapter-label">Chapter 01</div>
+    <div class="chapter-title">About Automagic AI</div>
+    <div class="chapter-desc">We help knowledge-intensive businesses understand where AI creates genuine operational advantage — and build the roadmap to get there.</div>
+  </div>
+</div>
+<div class="page">
+  <div class="section">
+    <div class="section-label">Who we are</div>
+    <h2>AI advisory built for complex, expert-driven businesses</h2>
+    <p>Automagic AI specialises in AI Transformation Discovery for professional services and technology-facing organisations. We work at the intersection of workflow intelligence, data architecture, and applied AI — helping leadership teams move from instinct about AI to evidence-based strategy.</p>
+    <p>Our engagements are deliberately scoped. We are not a software house selling a pre-built product, and we are not a generalist consultancy selling time. Each Discovery is a focused investigation of a specific organisation's operations — how work moves, where information lives, where decisions are made, and where AI creates durable competitive advantage rather than surface-level automation.</p>
+    <p>We bring particular depth to businesses where the core value lies in expert judgment, relationship capital, and the orchestration of complex information flows — exactly the conditions that define specialty insurance brokerage.</p>
+
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <div class="stat-num">3–4</div>
+        <div class="stat-label">Day discovery sprint</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Workflow areas examined</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Prioritised roadmap delivered</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Proprietary to Howden</div>
+      </div>
+    </div>
+
+    <div class="section-label">Our work</div>
+    <h3>Recent engagements</h3>
+    <p>At Hunter Executive, we built PESA — a Personal Executive Search Assistant — an AI-native operational intelligence ecosystem covering candidate sourcing, relationship scoring, meeting intelligence, outreach automation, and proposal generation. Hunter now operates at a level of analytical depth no competitor in executive search can match with a purely human workflow.</p>
+    <p>In financial services, we have delivered AI Transformation Discovery engagements for companies examining complex, multi-party transaction and advisory workflows — identifying where AI reduces cycle time, improves decision quality, and creates client-facing differentiation that compounds over time.</p>
+
+    <div class="pull-quote">
+      <p>"The Discovery is not a sales pitch for software. It is a rigorous examination of your operation — with an honest answer at the end about where AI creates real leverage and where it does not."</p>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 2 -->
+<div class="chapter-opener">
+  <div class="chapter-num-large">02</div>
+  <div class="chapter-opener-inner">
+    <div class="chapter-label">Chapter 02</div>
+    <div class="chapter-title">The Landscape</div>
+    <div class="chapter-desc">Why specialty insurance brokerage is one of the most consequential sectors for AI transformation — and why the window for first-mover advantage is narrow.</div>
+  </div>
+</div>
+<div class="page">
+  <div class="section">
+    <div class="section-label">Context</div>
+    <h2>A workflow-intensive, knowledge-intensive business at an inflection point</h2>
+    <p>Specialty insurance brokerage — and Prime Tech sits at the most complex end of the spectrum — is fundamentally an information business. Value is created by assembling the right risk intelligence at the right moment, matching it to the right carriers, and presenting it in a way that serves both client and market. Every step of that process is currently performed by highly skilled people working with imperfect tools.</p>
+    <p>AI does not change what the best brokers do. It changes how much of it they can do, how quickly, and at what level of analytical depth. The brokers who move first on this will be able to handle more placements at the same headcount, develop deeper client relationships through continuous intelligence rather than annual touchpoints, and build proprietary data assets that widen their advantage over time.</p>
+    <p>The Israeli tech and VC ecosystem — the heartland of Prime Tech's client base — is growing faster than any traditional brokerage model can track manually. Funding rounds, IPO events, new digital asset regulations, director appointments, and corporate restructurings are all coverage-relevant events that currently surface only when a client calls. They need not.</p>
+
+    <div class="pull-quote">
+      <p>"The brokers who move first will be able to handle more placements at the same headcount — and build client relationships that compound through continuous intelligence rather than annual renewal conversations."</p>
+    </div>
+
+    <div class="section-label">The Prime Tech position</div>
+    <h3>A unique data position in the Israeli tech insurance market</h3>
+    <p>Howden Prime Tech has served the Israeli technology sector for years — advising startups, scale-ups, pre-IPO companies, and VC funds across professional liability, D&O, digital assets, cyber, and M&A-related coverage. That history represents an extraordinary accumulation of structured knowledge about technology company risk profiles, carrier behaviour, and coverage outcomes.</p>
+    <p>That knowledge currently lives largely in people's heads and disconnected systems. A Discovery engagement begins by understanding what data already exists, what form it takes, and what could be done with it — before any conversation about technology or implementation.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 3 -->
+<div class="chapter-opener">
+  <div class="chapter-num-large">03</div>
+  <div class="chapter-opener-inner">
+    <div class="chapter-label">Chapter 03</div>
+    <div class="chapter-title">What We'll Investigate</div>
+    <div class="chapter-desc">The Discovery maps Prime Tech's placement workflow from first intelligence to ongoing client management — examining each stage as a distinct area of inquiry.</div>
+  </div>
+</div>
+<div class="page">
+  <div class="section">
+    <div class="section-label">Scope</div>
+    <h2>Six workflow areas, examined with precision</h2>
+    <p>The Discovery is structured around Prime Tech's brokerage lifecycle — six connected stages from new client identification to ongoing relationship management. At each stage, we investigate the current state in depth: how information flows, where decisions are made, what data exists, and where the process creates friction or loses value. We do not arrive with prescribed solutions. We arrive with the right questions.</p>
+
+    <div class="area-cards">
+      <div class="area-card">
+        <div class="area-card-num">Area 01</div>
+        <div class="area-card-title">New Client Intelligence</div>
+        <div class="area-card-body">How does Prime Tech currently identify and prioritise prospective clients? What signals indicate that a technology company or VC fund has entered a coverage-relevant moment — and how reliably do those signals reach the business development team? We will examine the gap between available market intelligence and what is actually acted upon.</div>
+      </div>
+      <div class="area-card">
+        <div class="area-card-num">Area 02</div>
+        <div class="area-card-title">Pre-Engagement Coverage Mapping</div>
+        <div class="area-card-body">Before a formal discovery call, business development agents form a hypothesis about what coverage a prospective client needs. How is that hypothesis built today? What information informs it, and what institutional knowledge does it depend on? We will assess the consistency and depth of this pre-engagement analysis across the team.</div>
+      </div>
+      <div class="area-card">
+        <div class="area-card-num">Area 03</div>
+        <div class="area-card-title">Client Discovery &amp; Risk Intake</div>
+        <div class="area-card-body">The discovery call and intake process is where client needs are formally established. What tools, forms, and processes does Prime Tech currently use? How does information gathered in discovery translate into a structured risk profile ready for placement? We will examine the quality of structured output from this stage and where information is lost or undercaptured.</div>
+      </div>
+      <div class="area-card">
+        <div class="area-card-num">Area 04</div>
+        <div class="area-card-title">Market Placement &amp; Quote Cycle</div>
+        <div class="area-card-body">Getting quotes from carriers is operationally intensive — each submission formatted differently, each carrier relationship managed separately, each quote response requiring manual extraction and normalisation. We will map this process in full: volumes, time, carrier relationships, submission formats, and the bottlenecks that slow the cycle from risk profile to bound terms.</div>
+      </div>
+      <div class="area-card">
+        <div class="area-card-num">Area 05</div>
+        <div class="area-card-title">Client Presentation &amp; Decision Support</div>
+        <div class="area-card-body">How does Prime Tech present competing options to clients? What does a coverage comparison look like today, and how well does it support an informed client decision? We will assess the quality and consistency of client-facing materials, the narrative built around recommendations, and how coverage differences are communicated to non-specialist buyers.</div>
+      </div>
+      <div class="area-card">
+        <div class="area-card-num">Area 06</div>
+        <div class="area-card-title">Ongoing Client Management</div>
+        <div class="area-card-body">Insurance relationships extend well beyond the point of binding. How does Prime Tech manage clients between renewals — monitoring for coverage-relevant changes, identifying cross-sell opportunities, and maintaining relationship quality at scale? We will examine the gap between the annual renewal touchpoint and the continuous advisory relationship the best brokers aspire to.</div>
+      </div>
+    </div>
+
+    <div class="section-label">Horizontal themes</div>
+    <h3>Cutting across all six areas</h3>
+    <p>In addition to the workflow stages, the Discovery will examine three themes that cut across the entire operation: the current state of Prime Tech's data — what exists, where it lives, and what form it takes; the regulatory and compliance context that governs how client data can be used; and the specific demands of the digital assets and VC coverage lines, which carry structural complexity beyond standard tech insurance.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 4 -->
+<div class="chapter-opener">
+  <div class="chapter-num-large">04</div>
+  <div class="chapter-opener-inner">
+    <div class="chapter-label">Chapter 04</div>
+    <div class="chapter-title">How We Work</div>
+    <div class="chapter-desc">A focused 3–4 day investigation — designed to produce conclusions, not observations.</div>
+  </div>
+</div>
+<div class="page">
+  <div class="section">
+    <div class="section-label">Methodology</div>
+    <h2>Discovery that produces a decision, not a report</h2>
+    <p>Most consulting engagements produce observations. The Automagic AI Discovery is designed to produce a decision: a prioritised set of AI interventions with clear expected impact, effort, and sequencing — so that Howden's leadership can act on the output rather than commission further study.</p>
+
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-rail"></div>
+        <div class="phase-body">
+          <div class="phase-label">Day 1–2</div>
+          <div class="phase-title">Operational Immersion</div>
+          <div class="phase-desc">Deep-dive interviews with the business development team, placement consultants, and senior management. Observation of live workflow where possible. Review of existing tools, templates, and data sources.</div>
+          <div class="phase-items">
+            <div class="phase-item">Structured interviews across all six workflow areas</div>
+            <div class="phase-item">Process mapping for each stage</div>
+            <div class="phase-item">Data audit: what exists, what format, what quality</div>
+            <div class="phase-item">Carrier relationship and submission format review</div>
+          </div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-rail"></div>
+        <div class="phase-body">
+          <div class="phase-label">Day 2–3</div>
+          <div class="phase-title">Market &amp; Competitive Research</div>
+          <div class="phase-desc">External research running in parallel — examining how AI is being adopted across global specialty brokerage, what the Israeli tech insurance market looks like from a data perspective, and how comparable businesses have sequenced their AI investments.</div>
+          <div class="phase-items">
+            <div class="phase-item">Competitive intelligence on AI adoption in specialty brokerage</div>
+            <div class="phase-item">Review of available market data and intelligence sources</div>
+            <div class="phase-item">Digital assets and VC coverage market context</div>
+            <div class="phase-item">Regulatory landscape: data use, AI governance in insurance</div>
+          </div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-rail"></div>
+        <div class="phase-body">
+          <div class="phase-label">Day 3–4</div>
+          <div class="phase-title">Analysis &amp; Roadmap Delivery</div>
+          <div class="phase-desc">Synthesis of findings into a prioritised transformation roadmap. Each recommendation assessed against operational impact, implementation effort, data readiness, and sequencing logic. Followed by a structured readout with Prime Tech leadership.</div>
+          <div class="phase-items">
+            <div class="phase-item">Opportunity prioritisation across all six workflow areas</div>
+            <div class="phase-item">Implementation sequencing and dependency mapping</div>
+            <div class="phase-item">Build vs buy vs configure assessment per recommendation</div>
+            <div class="phase-item">Leadership readout and Q&amp;A session</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>The engagement requires meaningful access to the Prime Tech team — this is not a desk exercise. We work best when we can observe real work, review real materials, and speak with the people who carry institutional knowledge that no system currently captures.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 5 -->
+<div class="chapter-opener">
+  <div class="chapter-num-large">05</div>
+  <div class="chapter-opener-inner">
+    <div class="chapter-label">Chapter 05</div>
+    <div class="chapter-title">The Deliverable</div>
+    <div class="chapter-desc">A single, definitive document that tells Howden Prime Tech where to invest in AI — and in what order.</div>
+  </div>
+</div>
+<div class="page">
+  <div class="section">
+    <div class="section-label">Output</div>
+    <h2>The AI Transformation Report</h2>
+    <p>At the conclusion of the Discovery, Howden Prime Tech receives a comprehensive written report — produced to presentation standard, proprietary in full, and designed to be read by both technical and non-technical leadership. The report contains six sections:</p>
+
+    <div class="deliverable-list">
+      <div class="deliverable-item">
+        <div class="deliverable-icon">01</div>
+        <div class="deliverable-content">
+          <h4>Current State Assessment</h4>
+          <p>A mapped view of the Prime Tech operation as it stands today — each workflow stage documented, data assets catalogued, and friction points quantified where possible.</p>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">02</div>
+        <div class="deliverable-content">
+          <h4>Opportunity Identification</h4>
+          <p>A structured analysis of where AI creates genuine leverage across the six workflow areas — with honest assessment of impact, effort, and risk for each opportunity identified.</p>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">03</div>
+        <div class="deliverable-content">
+          <h4>Market &amp; Competitive Context</h4>
+          <p>How the global specialty brokerage market is approaching AI adoption, where Howden Prime Tech sits relative to the competitive field, and what first-mover advantage looks like in this sector.</p>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">04</div>
+        <div class="deliverable-content">
+          <h4>Prioritised Roadmap</h4>
+          <p>A phased implementation sequence — near-term, medium-term, and strategic horizon — with clear rationale for ordering, estimated effort ranges, and dependency logic.</p>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">05</div>
+        <div class="deliverable-content">
+          <h4>Data &amp; Infrastructure Readiness</h4>
+          <p>An honest assessment of Prime Tech's data maturity — what data exists that could power AI, what gaps need to be addressed first, and what structural changes enable the highest-value interventions.</p>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">06</div>
+        <div class="deliverable-content">
+          <h4>Governance &amp; Compliance Considerations</h4>
+          <p>The regulatory and compliance context for using client data in AI systems — relevant Israeli, EU, and global frameworks — and recommended boundaries for responsible AI adoption in a regulated brokerage environment.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"The report is proprietary to Howden Prime Tech in full. Automagic AI retains no rights to the findings, methodology outputs, or data reviewed during the engagement."</p>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 6 -->
+<div class="chapter-opener">
+  <div class="chapter-num-large">06</div>
+  <div class="chapter-opener-inner">
+    <div class="chapter-label">Chapter 06</div>
+    <div class="chapter-title">Commercial Terms</div>
+    <div class="chapter-desc">Straightforward terms for a focused engagement.</div>
+  </div>
+</div>
+<div class="page">
+  <div class="section">
+    <div class="section-label">Engagement terms</div>
+    <h2>Clear, simple, and aligned to outcomes</h2>
+
+    <div class="terms-list">
+      <div class="term-row">
+        <div class="term-key">Duration</div>
+        <div class="term-val"><strong>3–4 days</strong> from agreed kick-off date. Final report and leadership readout delivered at the conclusion of the engagement.</div>
+      </div>
+      <div class="term-row">
+        <div class="term-key">Investment</div>
+        <div class="term-val">Fixed fee engagement. Pricing provided upon request following a 30-minute scoping call to confirm scope and access. No variable or success-based components.</div>
+      </div>
+      <div class="term-row">
+        <div class="term-key">Payment</div>
+        <div class="term-val"><strong>100% on delivery</strong> of the final report. No upfront deposit required.</div>
+      </div>
+      <div class="term-row">
+        <div class="term-key">Intellectual property</div>
+        <div class="term-val">The Discovery Report, all findings, and all workflow documentation produced during the engagement are <strong>owned in full by Howden Prime Tech</strong> from delivery. Automagic AI retains no licence to use, publish, or reference the findings.</div>
+      </div>
+      <div class="term-row">
+        <div class="term-key">Confidentiality</div>
+        <div class="term-val">Both parties execute a mutual NDA prior to commencement. All client data, carrier relationships, pricing, and operational detail reviewed during the Discovery remains strictly confidential.</div>
+      </div>
+      <div class="term-row">
+        <div class="term-key">Data handling</div>
+        <div class="term-val">No client or counterparty data is retained by Automagic AI beyond the engagement period. All materials shared during the Discovery are deleted or returned on completion.</div>
+      </div>
+      <div class="term-row">
+        <div class="term-key">Scope changes</div>
+        <div class="term-val">If material scope additions are agreed during the engagement, these are scoped and priced separately before commencement. The core Discovery scope and fee are fixed.</div>
+      </div>
+      <div class="term-row">
+        <div class="term-key">Continuation</div>
+        <div class="term-val">The Discovery has no obligation to continue into implementation. If Howden Prime Tech chooses to proceed with any recommendations, that engagement is scoped and contracted separately.</div>
+      </div>
+    </div>
+
+    <div class="section-label">What we need from Prime Tech</div>
+    <h3>Access and coordination</h3>
+    <p>The Discovery requires access to senior members of the business development, placement, and management teams for structured interviews — typically 60–90 minutes each. We will also need access to representative workflow materials: sample submission forms, client intake documents, and quote comparison outputs. No carrier-sensitive or client-confidential data need be shared without explicit agreement.</p>
+    <p>A single engagement coordinator within Prime Tech, with the authority to schedule access and confirm factual review of the report, will ensure the timeline is met.</p>
+
+    <div class="section-label">Next steps</div>
+    <h2>Four steps to begin</h2>
+
+    <div class="next-steps">
+      <div class="next-step">
+        <div class="next-step-num">01</div>
+        <div class="next-step-title">Scoping call</div>
+        <div class="next-step-desc">30-minute conversation to confirm scope, access, and timeline. Pricing confirmed at this stage.</div>
+      </div>
+      <div class="next-step">
+        <div class="next-step-num">02</div>
+        <div class="next-step-title">NDA &amp; agreement</div>
+        <div class="next-step-desc">Mutual NDA executed. Engagement letter signed prior to kick-off.</div>
+      </div>
+      <div class="next-step">
+        <div class="next-step-num">03</div>
+        <div class="next-step-title">Kick-off</div>
+        <div class="next-step-desc">Interview schedule agreed with Prime Tech coordinator. Day one begins.</div>
+      </div>
+      <div class="next-step">
+        <div class="next-step-num">04</div>
+        <div class="next-step-title">Report &amp; readout</div>
+        <div class="next-step-desc">Final report delivered. Leadership readout and Q&amp;A session conducted. Fee settled on delivery.</div>
+      </div>
+    </div>
+
+    <div class="section-label">Contact</div>
+    <h3>Automagic AI</h3>
+    <p style="margin-top:8px;">
+      <strong style="color:var(--black);">Moshe</strong> · Founder<br>
+      <span style="font-family:var(--mono);font-size:13px;color:var(--ink3);">hello@moshedavid.xyz</span>
+    </p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <div class="report-footer-inner">
+    <div class="footer-logos">
+      <img class="am" src="data:image/webp;base64,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" alt="Automagic AI">
+      <div class="footer-div"></div>
+      <img class="how" src="data:image/png;base64,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" alt="Howden">
+    </div>
+    <div class="report-footer-text">Automagic AI · Confidential · Prepared for Howden Prime Tech · September 2026</div>
+  </div>
+</div>
+
+</body>
+</html>
