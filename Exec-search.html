@@ -1,0 +1,494 @@
+<title>Hunter Executive — AI Transformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f8f7f5; --surface:#fff; --black:#111; --ink:#1c1c1c; --ink2:#595959; --ink3:#939390;
+  --rule:#e0ddd8; --panel:#efeeea;
+  --green:#1a5c3a; --orange:#b84c1a; --navy:#1a2f5c; --purple:#3b2778;
+  --serif:"Playfair Display",Georgia,serif;
+  --sans:"Inter",system-ui,sans-serif;
+  --mono:"DM Mono","Courier New",monospace;
+  --maxw:860px; --gutter:24px;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#111; --surface:#1a1a1a; --black:#f0ede8; --ink:#e8e5e0;
+  --ink2:#a0a09d; --ink3:#555; --rule:#2a2a2a; --panel:#1f1f1f;
+}}
+:root[data-theme=dark]{
+  --bg:#111; --surface:#1a1a1a; --black:#f0ede8; --ink:#e8e5e0;
+  --ink2:#a0a09d; --ink3:#555; --rule:#2a2a2a; --panel:#1f1f1f;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px}
+img{max-width:100%;height:auto;display:block}
+
+/* ── COVER ── */
+.cover{background:#0a0a0a;color:#fff;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(32px,6vw,72px) clamp(24px,5vw,60px)}
+.cover-top{display:flex;align-items:center;gap:16px}
+.cover-logo{height:30px;filter:invert(1) brightness(0.85)}
+.cover-by{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.4;font-family:var(--mono)}
+.cover-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.4;margin-bottom:20px;margin-top:auto;padding-top:80px}
+.cover-title{font-family:var(--serif);font-size:clamp(36px,6vw,80px);font-weight:700;line-height:1.08;color:#fff;max-width:780px;text-wrap:balance}
+.cover-subtitle{font-family:var(--serif);font-size:clamp(16px,2.5vw,22px);font-weight:400;font-style:italic;opacity:.6;margin-top:16px;max-width:580px;line-height:1.4}
+.cover-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:24px;padding-top:40px;border-top:1px solid rgba(255,255,255,.12);margin-top:40px}
+.cover-meta-item .label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.4;font-family:var(--mono)}
+.cover-meta-item .value{font-size:13px;opacity:.85;margin-top:4px}
+.cover-rule{width:48px;height:2px;background:#fff;opacity:.3;margin:24px 0}
+
+/* ── LAYOUT ── */
+.page{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+.page-wide{max-width:1100px;margin:0 auto;padding-inline:var(--gutter)}
+
+/* ── CHAPTER OPENER ── */
+.chapter-opener{background:#0a0a0a;color:#fff;padding:clamp(48px,8vw,80px) clamp(24px,5vw,60px)}
+.chapter-num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.35;margin-bottom:16px}
+.chapter-title{font-family:var(--serif);font-size:clamp(28px,4.5vw,52px);font-weight:700;line-height:1.1;max-width:680px;text-wrap:balance}
+.chapter-lead{font-family:var(--serif);font-style:italic;font-size:clamp(14px,2vw,18px);opacity:.65;max-width:560px;margin-top:16px;line-height:1.5}
+.chapter-num-large{font-family:var(--serif);font-size:clamp(80px,15vw,160px);font-weight:700;opacity:.06;line-height:1;margin-bottom:-0.2em;display:block}
+
+/* ── SECTIONS ── */
+.section{padding:56px var(--gutter)}
+.section+.section{border-top:1px solid var(--rule)}
+.section-inner{max-width:var(--maxw);margin:0 auto}
+h2{font-family:var(--serif);font-size:clamp(22px,3vw,32px);font-weight:700;color:var(--black);margin-bottom:16px;text-wrap:balance}
+h3{font-family:var(--serif);font-size:clamp(17px,2vw,22px);font-weight:600;color:var(--black);margin-bottom:10px;margin-top:32px;text-wrap:balance}
+h4{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-bottom:8px;margin-top:24px}
+p{color:var(--ink2);line-height:1.75;margin-bottom:14px}
+p+h3{margin-top:36px}
+ul{padding-left:20px;margin-bottom:14px}
+li{color:var(--ink2);line-height:1.7;margin-bottom:6px;font-size:15px}
+
+/* ── STATS GRID ── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden;margin:32px 0}
+.stat-cell{background:var(--surface);padding:28px 20px}
+.stat-num{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--black);line-height:1}
+.stat-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-top:6px;font-family:var(--mono)}
+
+/* ── PULL QUOTE ── */
+.pull-quote{border-left:3px solid var(--black);padding:16px 24px;margin:32px 0;background:var(--panel)}
+.pull-quote blockquote{font-family:var(--serif);font-size:clamp(16px,2.2vw,20px);font-style:italic;color:var(--black);line-height:1.5}
+.pull-quote cite{display:block;margin-top:8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);font-family:var(--mono);font-style:normal}
+
+/* ── BENEFIT CARDS ── */
+.benefit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:32px 0;border-radius:2px;overflow:hidden}
+.benefit-card{background:var(--surface);padding:28px 24px}
+.benefit-icon{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-bottom:14px}
+.benefit-icon.green{color:var(--green)}
+.benefit-icon.orange{color:var(--orange)}
+.benefit-icon.navy{color:var(--navy)}
+.benefit-icon.purple{color:var(--purple)}
+.benefit-title{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--black);margin-bottom:10px}
+.benefit-body{font-size:13.5px;color:var(--ink2);line-height:1.6}
+
+/* ── BEFORE / AFTER ── */
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:32px 0;border-radius:2px;overflow:hidden}
+@media(max-width:580px){.ba-grid{grid-template-columns:1fr}}
+.ba-col{padding:24px}
+.ba-col.before{background:var(--panel)}
+.ba-col.after{background:#0a0a0a;color:#fff}
+.ba-label{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.ba-col.before .ba-label{color:var(--ink3)}
+.ba-col.after .ba-label{color:rgba(255,255,255,.35)}
+.ba-col.after p{color:rgba(255,255,255,.7)}
+.ba-item{font-size:14px;color:var(--ink2);padding:8px 0;border-bottom:1px solid var(--rule);line-height:1.5}
+.ba-item:last-child{border-bottom:none}
+.ba-col.after .ba-item{color:rgba(255,255,255,.7);border-bottom-color:rgba(255,255,255,.1)}
+.ba-item strong{color:var(--black);font-weight:600}
+.ba-col.after .ba-item strong{color:#fff}
+
+/* ── CAPABILITY CARDS ── */
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:32px 0}
+.cap-card{border:1px solid var(--rule);border-radius:2px;padding:22px;background:var(--surface)}
+.cap-suite{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);margin-bottom:8px}
+.cap-suite.green{color:var(--green)} .cap-suite.orange{color:var(--orange)}
+.cap-suite.navy{color:var(--navy)} .cap-suite.purple{color:var(--purple)}
+.cap-name{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--black);margin-bottom:8px}
+.cap-desc{font-size:13px;color:var(--ink2);line-height:1.6}
+
+/* ── DAY IN LIFE ── */
+.timeline-v{margin:32px 0}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:20px;padding:0 0 28px;position:relative}
+.tl-item::before{content:"";position:absolute;left:39px;top:28px;bottom:0;width:1px;background:var(--rule)}
+.tl-item:last-child::before{display:none}
+.tl-time{font-family:var(--mono);font-size:11px;color:var(--ink3);padding-top:3px;text-align:right;letter-spacing:.04em}
+.tl-dot{position:absolute;left:33px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--black);border:2px solid var(--bg)}
+.tl-content{}
+.tl-title{font-weight:600;color:var(--black);font-size:15px;margin-bottom:5px}
+.tl-desc{font-size:14px;color:var(--ink2);line-height:1.6}
+.tl-ai{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;background:var(--panel);border:1px solid var(--rule);padding:2px 8px;border-radius:2px;color:var(--ink3);margin-top:6px}
+
+/* ── PRINCIPLES ── */
+.principles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:32px 0}
+.principle-item{border-top:2px solid var(--black);padding-top:14px}
+.principle-num{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink3);margin-bottom:6px}
+.principle-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--black);margin-bottom:6px}
+.principle-body{font-size:13px;color:var(--ink2);line-height:1.55}
+
+/* ── CTA BLOCK ── */
+.cta-block{background:#0a0a0a;color:#fff;padding:clamp(48px,8vw,80px) clamp(24px,5vw,60px);margin-top:0}
+.cta-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.4;margin-bottom:20px}
+.cta-title{font-family:var(--serif);font-size:clamp(26px,4vw,46px);font-weight:700;line-height:1.12;max-width:640px;text-wrap:balance;margin-bottom:20px}
+.cta-body{font-size:15px;color:rgba(255,255,255,.55);max-width:520px;line-height:1.7;margin-bottom:36px}
+.cta-details{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid rgba(255,255,255,.1);padding-top:28px}
+.cta-detail-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:5px}
+.cta-detail-value{font-size:14px;color:rgba(255,255,255,.7)}
+
+/* ── FOOTER ── */
+.report-footer{background:#0a0a0a;color:rgba(255,255,255,.3);padding:28px clamp(24px,5vw,60px);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;letter-spacing:.08em;border-top:1px solid rgba(255,255,255,.06)}
+.report-footer img{height:18px;filter:invert(1) brightness(0.7)}
+
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .cap-grid{grid-template-columns:1fr}
+}
+</style>
+
+<!-- ══════════ COVER ══════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <img src="data:image/webp;base64,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" alt="Automagic AI" class="cover-logo">
+    <span class="cover-by">Client Story</span>
+  </div>
+  <div>
+    <p class="cover-kicker">Executive Search · AI Transformation</p>
+    <div class="cover-rule"></div>
+    <h1 class="cover-title">How Hunter Executive transformed their search practice with AI</h1>
+    <p class="cover-subtitle">From manual research to an always-on intelligence platform — what changed, and what it means for your firm.</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><div class="label">Client</div><div class="value">Hunter Executive</div></div>
+      <div class="cover-meta-item"><div class="label">Engagement</div><div class="value">AI Transformation</div></div>
+      <div class="cover-meta-item"><div class="label">Lead to Brief</div><div class="value">&lt;5 minutes</div></div>
+      <div class="cover-meta-item"><div class="label">Market Mapping</div><div class="value">Days → Hours</div></div>
+      <div class="cover-meta-item"><div class="label">Workflows Automated</div><div class="value">25 end-to-end</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CH1: THE CHALLENGE ══════════ -->
+<div class="chapter-opener">
+  <div class="page">
+    <span class="chapter-num-large">01</span>
+    <div class="chapter-num">Chapter One</div>
+    <h1 class="chapter-title">The Challenge</h1>
+    <p class="chapter-lead">Elite executive search is a relationship business. But the operational burden of running it had become a research business, a data-entry business, a formatting business — none of which is why the best consultants got into the field.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-inner">
+    <h2>Where the best consultants' time was actually going</h2>
+    <p>Hunter Executive is an executive search firm operating at the senior end of the market. Their consultants are skilled relationship builders who understand how to place candidates that fit — not just on paper, but in culture, trajectory, and ambition. That expertise is not replicable. The hours it took to build a lead research brief, map a candidate market, score relationship health, and format a client proposal — those were.</p>
+    <p>Before working with Automagic, the operational reality looked like this: a new prospect came in and a consultant would spend two to four hours manually researching the company, their leadership, their insurance history, their growth stage, before picking up the phone. A new search assignment meant days of market mapping before a longlist existed. Relationship management meant relying on memory and calendar reminders. Outreach meant starting from a blank page every time.</p>
+    <p>The intelligence was inside the business — in emails, call notes, CRM records, historical placements. It was just inaccessible at the moment it was needed.</p>
+
+    <div class="ba-grid">
+      <div class="ba-col before">
+        <div class="ba-label">Before</div>
+        <div class="ba-item"><strong>New lead research</strong> — 2–4 hours of manual research before the first call</div>
+        <div class="ba-item"><strong>Market mapping</strong> — 2–3 days to build a longlist for a new search</div>
+        <div class="ba-item"><strong>Proposals</strong> — drafted from scratch, disconnected from market data</div>
+        <div class="ba-item"><strong>Relationship health</strong> — tracked by memory and calendar reminders</div>
+        <div class="ba-item"><strong>Outreach</strong> — written fresh for every sequence, every time</div>
+        <div class="ba-item"><strong>Meeting intelligence</strong> — lost in notes, rarely transferred to the CRM</div>
+      </div>
+      <div class="ba-col after">
+        <div class="ba-label">After</div>
+        <div class="ba-item"><strong>New lead research</strong> — complete 12-section brief in under 5 minutes</div>
+        <div class="ba-item"><strong>Market mapping</strong> — comprehensive longlists built in hours, not days</div>
+        <div class="ba-item"><strong>Proposals</strong> — generated from live market data and relevant case history</div>
+        <div class="ba-item"><strong>Relationship health</strong> — scored continuously, at-risk relationships flagged automatically</div>
+        <div class="ba-item"><strong>Outreach</strong> — personalised sequences generated in the consultant's authentic voice</div>
+        <div class="ba-item"><strong>Meeting intelligence</strong> — every call transcribed, analysed, and entered into the CRM automatically</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CH2: WHAT CHANGED ══════════ -->
+<div class="chapter-opener">
+  <div class="page">
+    <span class="chapter-num-large">02</span>
+    <div class="chapter-num">Chapter Two</div>
+    <h1 class="chapter-title">What Changed</h1>
+    <p class="chapter-lead">The goal was not to automate Hunter Executive. It was to give their consultants the operational leverage that had only ever existed at firms ten times their size.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-inner">
+    <h2>A platform built around the consultant, not the process</h2>
+    <p>Automagic designed and built PESA — the Personal Executive Search Assistant — as Hunter Executive's operational intelligence platform. PESA is not a CRM plugin or a generic AI tool. It is a purpose-built system that understands executive search workflows, holds consultant-specific context, and deploys the right intelligence at the right moment.</p>
+    <p>The foundational principle was simple: consultants should spend their time on relationships and judgement. Everything else — the research, the enrichment, the brief writing, the relationship scoring, the outreach, the market mapping — should happen around them, not instead of them.</p>
+
+    <div class="stats-grid">
+      <div class="stat-cell"><div class="stat-num">&lt;5 min</div><div class="stat-label">Lead to full intelligence brief</div></div>
+      <div class="stat-cell"><div class="stat-num">Hours</div><div class="stat-label">Market mapping, not days</div></div>
+      <div class="stat-cell"><div class="stat-num">25</div><div class="stat-label">Workflows automated end-to-end</div></div>
+      <div class="stat-cell"><div class="stat-num">12</div><div class="stat-label">AI capabilities always active</div></div>
+      <div class="stat-cell"><div class="stat-num">Zero</div><div class="stat-label">Relationship intelligence lost to memory</div></div>
+      <div class="stat-cell"><div class="stat-num">Every</div><div class="stat-label">Call turned into a permanent intelligence asset</div></div>
+    </div>
+
+    <div class="pull-quote">
+      <blockquote>"The consultants at Hunter Executive are excellent at what they do. The question was never whether they could do more — it was whether the firm had the infrastructure to let them."</blockquote>
+      <cite>Automagic · Engagement Lead</cite>
+    </div>
+
+    <h3>Four areas of transformation</h3>
+    <p>The changes were distributed across four areas of the executive search workflow. Each was meaningful on its own. Together, they changed the nature of what a day at Hunter Executive looks like.</p>
+
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon green">Business Development</div>
+        <div class="benefit-title">Arriving at every call prepared</div>
+        <div class="benefit-body">Consultants now walk into first meetings with a complete intelligence brief — company context, leadership history, growth signals, likely search needs, and five tailored discovery questions — generated in under five minutes. Cold calls became warm calls.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon navy">Relationship Intelligence</div>
+        <div class="benefit-title">Never losing a relationship to neglect</div>
+        <div class="benefit-body">Every contact in Hunter's network is scored continuously for engagement, recency, and strategic value. At-risk relationships are flagged before decay becomes irreversible. Reactivation is automatic. The network becomes a managed asset, not a list of names.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon purple">Executive Search</div>
+        <div class="benefit-title">Longlists in hours, not days</div>
+        <div class="benefit-body">Market mapping that once took two to three days of manual research now takes hours. Candidate evaluation uses a consistent scoring framework rather than gut feel under time pressure. Every shortlist is better documented and more defensible to clients.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon orange">Operations</div>
+        <div class="benefit-title">The CRM that fills itself</div>
+        <div class="benefit-body">Every call is transcribed, analysed, and entered. Follow-ups are drafted. Status updates happen automatically. Invoice milestones are detected. The consultant's working week shrinks without a single client or candidate relationship degrading.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CH3: A DAY IN THE LIFE ══════════ -->
+<div class="chapter-opener">
+  <div class="page">
+    <span class="chapter-num-large">03</span>
+    <div class="chapter-num">Chapter Three</div>
+    <h1 class="chapter-title">A Day in the Life</h1>
+    <p class="chapter-lead">What the transformation looks like from the inside — a Hunter Executive consultant's working day, before and after PESA.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-inner">
+    <h2>The same number of hours. Entirely different work.</h2>
+    <p>The most meaningful change is not the speed of any individual task — it is what the consultant is doing with the time that was freed. Research became strategy. Formatting became relationship-building. Waiting became proactive intelligence.</p>
+
+    <div class="timeline-v">
+      <div class="tl-item">
+        <div class="tl-time">8:30</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">Morning intelligence briefing</div>
+          <div class="tl-desc">PESA surfaces the three highest-priority actions for the day — a VIP relationship that has gone quiet, a pipeline deal that is stalling, an assignment closing in on its deadline. The consultant starts focused, not inbox-reactive.</div>
+          <span class="tl-ai">AI · Next-Best-Action + Pipeline Intelligence</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">9:15</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">New prospect call — fully briefed</div>
+          <div class="tl-desc">A new lead came in yesterday. PESA has already produced a 12-section intelligence brief: company context, leadership history, likely coverage gaps, deal probability estimate, and five tailored discovery questions. The consultant reads it in ten minutes before the call.</div>
+          <span class="tl-ai">AI · Lead Intelligence Agent</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">11:00</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">The call happens — the CRM fills itself</div>
+          <div class="tl-desc">The call is transcribed in real time. Afterwards, PESA has extracted action items, updated the CRM record, identified follow-up tasks, and drafted the follow-up email — in the consultant's own voice. The consultant reviews and sends.</div>
+          <span class="tl-ai">AI · Meeting Intelligence Agent</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">14:00</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">New search briefed — longlist started</div>
+          <div class="tl-desc">A client has confirmed a search assignment. PESA begins market mapping immediately: sourcing candidates across LinkedIn, Crunchbase, and SignalHire, building standardised profiles, and scoring initial fit against the role brief. By end of day, a working longlist exists.</div>
+          <span class="tl-ai">AI · Sourcing Agent + Market Mapping Agent</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">16:30</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">Relationship reactivation — automatically prompted</div>
+          <div class="tl-desc">PESA has flagged a senior contact the consultant hasn't spoken to in 90 days — a decision-maker at a firm that typically searches every 18 months. A personalised reactivation message has been drafted and is ready to review. One click sends it.</div>
+          <span class="tl-ai">AI · RelationshipScore Agent + Outreach Agent</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CH4: THE CAPABILITIES ══════════ -->
+<div class="chapter-opener">
+  <div class="page">
+    <span class="chapter-num-large">04</span>
+    <div class="chapter-num">Chapter Four</div>
+    <h1 class="chapter-title">The Capabilities</h1>
+    <p class="chapter-lead">Twelve specialist AI capabilities, each covering a specific part of the executive search workflow — all connected, all working in parallel.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-inner">
+    <h2>What Hunter Executive can do now that they couldn't before</h2>
+    <p>Each capability below existed before only as manual consultant time. Now it runs continuously, in the background, surfacing results when they are needed and escalating actions when they require human judgement.</p>
+
+    <div class="cap-grid">
+      <div class="cap-card">
+        <div class="cap-suite green">Business Development</div>
+        <div class="cap-name">Lead Intelligence</div>
+        <div class="cap-desc">A complete 12-section intelligence brief from any company name — in under five minutes. Includes estimated deal probability, compensation benchmarks, and five tailored discovery questions for the first call.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite orange">Operations</div>
+        <div class="cap-name">Meeting Intelligence</div>
+        <div class="cap-desc">Every call transcribed, analysed, and converted into CRM records, follow-up actions, and client-ready notes. Nothing leaves a meeting without being captured.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite navy">Operations</div>
+        <div class="cap-name">Priority Intelligence</div>
+        <div class="cap-desc">Surfaces the highest-value action for each consultant at any given moment — integrated with pipeline health, relationship scores, and assignment deadlines to prioritise by expected impact, not urgency.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite green">Business Development</div>
+        <div class="cap-name">Personalised Outreach</div>
+        <div class="cap-desc">Orchestrates outreach sequences via LinkedIn, email, and WhatsApp using the consultant's communication history and relationship context — generating messages that read as the consultant, not as a template.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite orange">Business Development</div>
+        <div class="cap-name">Proposal Generation</div>
+        <div class="cap-desc">Fully structured proposals grounded in live market data and relevant placement history — generated automatically and ready for consultant review. Accepted proposals automatically transition to live assignments.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite navy">Relationship Intelligence</div>
+        <div class="cap-name">Network Health Monitoring</div>
+        <div class="cap-desc">Scores every relationship in the Hunter network on engagement, recency, and strategic value. At-risk VIP contacts are flagged and reactivation workflows triggered — before relationships go cold.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite purple">Executive Search</div>
+        <div class="cap-name">Market Sourcing</div>
+        <div class="cap-desc">Executes market mapping and longlist building against any role brief. Drops the mapping phase from 2–3 days of manual research to hours — delivering comprehensive longlists with standardised candidate profiles.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite orange">Operations</div>
+        <div class="cap-name">Workflow Automation</div>
+        <div class="cap-desc">Executes routine consultant activities autonomously: relationship touches, assignment status updates, invoice milestone detection, new assignment openings. The working week shrinks without relationships degrading.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite purple">Executive Search</div>
+        <div class="cap-name">Candidate Evaluation</div>
+        <div class="cap-desc">Scores candidates against role briefs using a consistent, criteria-based evaluation framework. Replaces gut-feel shortlisting under deadline pressure with structured, defensible decisions that hold up to client scrutiny.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite purple">Executive Search</div>
+        <div class="cap-name">Executive Market Mapping</div>
+        <div class="cap-desc">Builds comprehensive executive market maps by industry, function, and geography — integrating multiple data sources to produce landscape analyses in hours that previously took days.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite navy">Operations</div>
+        <div class="cap-name">Pipeline Intelligence</div>
+        <div class="cap-desc">Monitors revenue pipeline health with proactive diagnosis. Stalls are caught early, loss patterns identified before they compound. Management receives real-time intelligence with prescriptive next steps — not just a dashboard of numbers.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-suite orange">Business Development</div>
+        <div class="cap-name">Brand &amp; Thought Leadership</div>
+        <div class="cap-desc">Transforms consultant insights into consistent, on-brand content — LinkedIn posts, market commentary, sector updates. Market presence becomes strategic and continuous rather than occasional and reactive.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CH5: WHAT THIS MEANS FOR YOUR FIRM ══════════ -->
+<div class="chapter-opener">
+  <div class="page">
+    <span class="chapter-num-large">05</span>
+    <div class="chapter-num">Chapter Five</div>
+    <h1 class="chapter-title">What This Means for Your Firm</h1>
+    <p class="chapter-lead">The advantage Hunter Executive built is not unique to them. It is available to any executive search firm willing to build it — before their competitors do.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-inner">
+    <h2>The window is open. It will not stay that way.</h2>
+    <p>The tools that power what Hunter Executive built are widely available. The models, the APIs, the infrastructure — none of it is proprietary. What is proprietary is how they are assembled, configured, and connected to the specific workflows of an executive search practice. That assembly takes understanding of the business, not just the technology.</p>
+    <p>The firms that move first will not just be faster at what they already do. They will accumulate proprietary data assets — relationship intelligence, placement history, market intelligence — that widen their advantage over time. A firm that has been scoring relationship health for three years has something a firm that starts today will not have for three years.</p>
+
+    <div class="principles-grid">
+      <div class="principle-item">
+        <div class="principle-num">01</div>
+        <div class="principle-title">More placements, same headcount</div>
+        <div class="principle-body">When research, enrichment, and operational tasks are automated, consultants can manage more searches without degrading the quality of any individual one.</div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">02</div>
+        <div class="principle-title">Deeper client relationships</div>
+        <div class="principle-body">Continuous relationship intelligence replaces the annual check-in. Consultants know who is thinking about a search before the client calls — and show up with that knowledge.</div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">03</div>
+        <div class="principle-title">A network that compounds</div>
+        <div class="principle-body">Every interaction, enriched and stored. Every relationship, scored and monitored. The firm's network becomes a managed intelligence asset that grows more valuable with every engagement.</div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">04</div>
+        <div class="principle-title">Consistent quality at scale</div>
+        <div class="principle-body">AI-assisted candidate evaluation and structured briefing means that quality does not depend on which consultant handles a search. Standards become organisational, not individual.</div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <blockquote>"This is not about replacing what experienced search consultants do. It is about removing everything that prevents them from doing more of it."</blockquote>
+      <cite>Automagic · Executive Search AI Practice</cite>
+    </div>
+
+    <h3>How Automagic approaches this</h3>
+    <p>We begin with a Discovery engagement: three to four days spent inside your firm, understanding your workflow, your tools, your team, and where the real friction is. We do not arrive with a predetermined solution. We arrive with the questions, and the methodology to find the answers in your specific context.</p>
+    <p>The Discovery produces an AI Transformation Report — a prioritised, practical roadmap specific to your practice. It tells you what to build, in what order, and what it will mean for your consultants when it is built. Implementation follows for firms ready to move.</p>
+  </div>
+</div>
+
+<!-- ══════════ CTA ══════════ -->
+<div class="cta-block">
+  <div class="page">
+    <div class="cta-label">Get started</div>
+    <h2 class="cta-title">Start with a Discovery. Know what's possible before you commit to anything.</h2>
+    <p class="cta-body">Three to four days. A clear output. No obligation to proceed. The Discovery is where we learn your practice and you learn what AI can actually do for it — based on evidence, not assumption.</p>
+    <div class="cta-details">
+      <div>
+        <div class="cta-detail-label">Duration</div>
+        <div class="cta-detail-value">3–4 days</div>
+      </div>
+      <div>
+        <div class="cta-detail-label">Deliverable</div>
+        <div class="cta-detail-value">AI Transformation Report</div>
+      </div>
+      <div>
+        <div class="cta-detail-label">Contact</div>
+        <div class="cta-detail-value">hello@moshedavid.xyz</div>
+      </div>
+      <div>
+        <div class="cta-detail-label">Produced by</div>
+        <div class="cta-detail-value">Automagic Agency</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <img src="data:image/webp;base64,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" alt="Automagic AI">
+  <span>Automagic Agency · Hunter Executive Client Story · 2026</span>
+  <span>hello@moshedavid.xyz</span>
+</div>
